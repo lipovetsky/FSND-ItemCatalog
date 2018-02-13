@@ -20,3 +20,8 @@ session = DBSession()
 def showAll():
     authors = session.query(Author).all()
     return render_template('index.html', authors = authors)
+
+if __name__ == '__main__':
+    app.debug = True
+    app.secret_key = 'iloveyou'
+    app.run(host='0.0.0.0', port = 5000)
