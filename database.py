@@ -30,6 +30,21 @@ class Book(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String(500))
     image = Column(String(250))
+    amazon = Column(String(250))
     description = Column(String)
     author_id = Column(Integer, ForeignKey('author.id'))
     author = relationship(Author)
+
+    @property
+    def serialize(self):
+        return {
+        'Name' : self.name,
+        'Image' : self.image,
+        'Author' : self.author,
+        'Amazon' : self.amazon,
+        'Description' : self.description,
+        }
+
+engine = create_engine('sqlite:///greatbooks.db')
+
+Base.metadata.create_all(engine)
