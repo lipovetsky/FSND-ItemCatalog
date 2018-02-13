@@ -21,6 +21,20 @@ def showAll():
     authors = session.query(Author).all()
     return render_template('index.html', authors = authors)
 
+@app.route('/authors/add', methods=['GET', 'POST'])
+def newAuthor():
+    if request.method == 'POST':
+        theAuthor = request.form['authorname']
+        theBio = request.form['bio']
+        thePhoto = request.form['picture']
+        session.add(Author(lastname=theAuthor, bio = theBio, photo = thePhoto))
+        session.commit()
+        flash("Author has been added!")
+        return redirect(url_for('showAll'))
+
+    else:
+        return render_template('newauthor.html')
+
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = 'iloveyou'
