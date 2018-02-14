@@ -17,7 +17,8 @@ DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
 @app.route('/')
-def showAll():
+@app.route('/authors')
+def showAllAuthors():
     authors = session.query(Author).all()
     return render_template('index.html', authors = authors)
 
@@ -31,9 +32,32 @@ def newAuthor():
         session.commit()
         flash("Author has been added!")
         return redirect(url_for('showAll'))
-
     else:
         return render_template('newauthor.html')
+
+@app.route('/authors/<authorname>/edit', methods=['GET', 'POST'])
+def editAuthor():
+    return "Edit the author"
+
+@app.route('/authors/<int:authorname>/delete', methods=['GET', 'POST'])
+def deleteAuthor():
+    return "Delete the author"
+
+@app.route('/authors/<authorname>')
+def showAuthor():
+    return "This is the author page with a book list"
+
+@app.route('/authors/<bookname>')
+def showBook():
+    return "This page will show the book by the author"
+
+@app.route('/authors/<bookname>/edit')
+def editBook():
+    return "This page will edit the book"
+
+@app.route('/authors/<bookname>/delete')
+def deleteBook():
+    return "This page will delete the book"
 
 if __name__ == '__main__':
     app.debug = True

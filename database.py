@@ -43,6 +43,7 @@ class Book(Base):
         'Author' : self.author,
         'Amazon' : self.amazon,
         'Description' : self.description,
+        'ID' : self.id,
         }
 
 engine = create_engine('sqlite:///greatbooks.db')
