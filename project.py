@@ -22,6 +22,10 @@ def showAllAuthors():
     authors = session.query(Author).all()
     return render_template('index.html', authors = authors)
 
+@app.route('/<authorname>')
+def showAuthor(authorname):
+    return "This is %s's page with a book list" % authorname
+
 @app.route('/authors/add', methods=['GET', 'POST'])
 def newAuthor():
     if request.method == 'POST':
@@ -35,29 +39,29 @@ def newAuthor():
     else:
         return render_template('newauthor.html')
 
-@app.route('/authors/<authorname>/edit', methods=['GET', 'POST'])
-def editAuthor():
-    return "Edit the author"
+@app.route('/<authorname>/edit', methods=['GET', 'POST'])
+def editAuthor(authorname):
+    return "Edit %s" % authorname
 
-@app.route('/authors/<int:authorname>/delete', methods=['GET', 'POST'])
-def deleteAuthor():
-    return "Delete the author"
+@app.route('/<authorname>/delete', methods=['GET', 'POST'])
+def deleteAuthor(authorname):
+    return "Delete %s" % authorname
 
-@app.route('/authors/<authorname>')
-def showAuthor():
-    return "This is the author page with a book list"
+@app.route('/<authorname>/<bookname>')
+def showBook(authorname, bookname):
+    return "This page will show the book %s by the author %s" % (bookname, authorname)
 
-@app.route('/authors/<bookname>')
-def showBook():
-    return "This page will show the book by the author"
+@app.route('/<authorname>/add')
+def addBook(authorname):
+    return "This page will add a book for the author %s" % authorname
 
-@app.route('/authors/<bookname>/edit')
-def editBook():
-    return "This page will edit the book"
+@app.route('/<authorname>/<bookname>/edit')
+def editBook(authorname, bookname):
+    return "This page will edit the book %s by the author %s" % (bookname, authorname)
 
-@app.route('/authors/<bookname>/delete')
-def deleteBook():
-    return "This page will delete the book"
+@app.route('/<authorname>/<bookname>/delete')
+def deleteBook(authorname, bookname):
+    return "This page will delete the book %s by the author %s" % (bookname, authorname)
 
 if __name__ == '__main__':
     app.debug = True
