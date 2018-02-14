@@ -24,7 +24,7 @@ def showAllAuthors():
 
 @app.route('/<authorname>')
 def showAuthor(authorname):
-    return "This is %s's page with a book list" % authorname
+    return render_template('authorpage.html', author = authorname)
 
 @app.route('/authors/add', methods=['GET', 'POST'])
 def newAuthor():
@@ -32,36 +32,37 @@ def newAuthor():
         theAuthor = request.form['authorname']
         theBio = request.form['bio']
         thePhoto = request.form['picture']
-        session.add(Author(lastname=theAuthor, bio = theBio, photo = thePhoto))
+        session.add(Author(last_name = theAuthor, bio = theBio, photo = thePhoto))
         session.commit()
         flash("Author has been added!")
-        return redirect(url_for('showAll'))
+        return redirect(url_for('showAllAuthors'))
     else:
         return render_template('newauthor.html')
 
 @app.route('/<authorname>/edit', methods=['GET', 'POST'])
 def editAuthor(authorname):
-    return "Edit %s" % authorname
+    return render_template('editauthor.html', author = authorname)
+
 
 @app.route('/<authorname>/delete', methods=['GET', 'POST'])
 def deleteAuthor(authorname):
-    return "Delete %s" % authorname
+    return render_template('deleteauthor.html', author = authorname)
 
 @app.route('/<authorname>/<bookname>')
 def showBook(authorname, bookname):
-    return "This page will show the book %s by the author %s" % (bookname, authorname)
+    return render_template('bookpage.html', author = authorname, book = bookname)
 
 @app.route('/<authorname>/add')
 def addBook(authorname):
-    return "This page will add a book for the author %s" % authorname
+    return render_template('addbook.html', author = authorname)
 
 @app.route('/<authorname>/<bookname>/edit')
 def editBook(authorname, bookname):
-    return "This page will edit the book %s by the author %s" % (bookname, authorname)
+    return render_template('editbook.html', author = authorname, book = bookname)
 
 @app.route('/<authorname>/<bookname>/delete')
 def deleteBook(authorname, bookname):
-    return "This page will delete the book %s by the author %s" % (bookname, authorname)
+    return render_template('deletebook.html', author = authorname, book = bookname)
 
 if __name__ == '__main__':
     app.debug = True
