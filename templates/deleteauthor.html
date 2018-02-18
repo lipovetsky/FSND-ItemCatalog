@@ -15,7 +15,7 @@
   <form action='{{url_for('deleteAuthor', author = author.last_name)}}' method='post'>
     <br><input type='submit' class='button' value='Yes'>
   </form>
-  <a href="{{url_for('showAllAuthors')}}">No</a>
+  <br><a href="{{url_for('showAuthor', author = author.last_name)}}">Back to Author Page</a>
   {% endblock %}
 </body>
 </html>
