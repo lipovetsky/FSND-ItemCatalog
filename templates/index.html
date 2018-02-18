@@ -9,7 +9,7 @@
 <body>
   {% block content %}
   <h2>Lit For Brains Presents</h2>
-  <h1>The Great Books of the Western World</h1>
+  <h1><a href="{{url_for('showAllAuthors')}}">The Great Books of the Western World</a></h1>
   <br><h2>Main Page</h2>
   <h3><a href="{{url_for('newAuthor')}}">Add Author</a></h3>
   {% for author in authors %}

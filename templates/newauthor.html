@@ -10,7 +10,7 @@
 <body>
   {% block content %}
   <h2>Lit For Brains Presents</h2>
-  <h1>The Great Books of the Western World</h1>
+  <h1><a href="{{url_for('showAllAuthors')}}">The Great Books of the Western World</a></h1>
   <h2>Add New Author</h2>
   <form action = '{{url_for('newAuthor')}}' method='post'
   enctype='multipart/form-data'>
