@@ -16,6 +16,8 @@
   <br><p>Motto: {{author.bio}}</p>
   <h2>Book</h2>
   <h2>{{book.name}}</h2>
+  <h3><a href="{{url_for('editBook', author = author.last_name, book = book.name)}}">Edit Book</a></h3>
+  <h3><a href="{{url_for('deleteBook', author = author.last_name, book = book.name)}}">Delete Book</a></h3>
   <img src="{{book.image}}" width="300" height="400">
   <p>{{book.amazon}}</p>
   <p>{{book.description}}</p>
