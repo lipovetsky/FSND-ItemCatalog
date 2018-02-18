@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+{% extends 'bootstrap/base.html' %}
+</html>
+<head>
+  <title>Delete Book</title>
+  <meta name=viewport content='width=device-width', initial-scale=1.0>
+</head>
+
+<body>
+  {% block content %}
+  <h2>Lit For Brains Presents</h2>
+  <h1>The Great Books of the Western World</h1>
+  <h2>Delete {{book.name}} by {{author.last_name}}</h2>
+  {% endblock %}
+</body>

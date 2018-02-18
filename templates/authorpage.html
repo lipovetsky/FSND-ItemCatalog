@@ -11,5 +11,14 @@
   {% block content %}
   <h2>Lit For Brains Presents</h2>
   <h1>The Great Books of the Western World</h1>
+  <br><h2>{{author.last_name.title()}}</h2>
+  <img src="{{author.photo}}" width="300" height="400">
+  <br><p>Motto: {{author.bio}}</p>
+  <h2>Books</h2>
+  {% for book in books %}
+  <p>{{book.name}}</p>
+  <a href="{{url_for('showBook', author = author.last_name, book = book.name)}}">
+    <img src="{{book.image}}" width="300" height="400"></a>
+  {% endfor %}
   {% endblock %}
 </body>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+{% extends 'bootstrap/base.html' %}
+</html>
+<head>
+  <title>Edit {{author.last_name}}</title>
+  <meta name=viewport content='width=device-width', initial-scale=1.0>
+</head>
+
+<body>
+  {% block content %}
+  <h2>Lit For Brains Presents</h2>
+  <h1>The Great Books of the Western World</h1>
+  <h2>Edit Author</h2>
+  <br>
+  <form action='{{url_for('editAuthor', author = author.last_name)}}' method='post'>
+    <span><h3>Last Name:</h3></span>
+    <br><input type='text' size='30' name='authorname' value='{{author.last_name}}'>
+    <span><h3>Bio:</h3></span>
+    <br><input type='text' size='50' name='bio' value='{{author.bio}}'>
+    <span><h3>Image URL:</h3></span>
+    <br><input type='text' size='50' name='picture' value='{{author.photo}}'>
+    <br><input type='submit' class='button' value='Edit'>
+  </form>
+  {% endblock %}
+</body>

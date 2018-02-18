@@ -10,6 +10,13 @@
   {% block content %}
   <h2>Lit For Brains Presents</h2>
   <h1>The Great Books of the Western World</h1>
+  <br><h2>Main Page</h2>
+  {% for author in authors %}
+  <a href="{{url_for('showAuthor', author = author.last_name)}}">
+    <img src="{{author.photo}}" width="300" height="400"></a>
+  <br>{{author.last_name.title()}}
+  <br>{{author.bio}}<br><br>
+  {% endfor %}
   {% endblock %}
 </body>
 </html>

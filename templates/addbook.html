@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+{% extends 'bootstrap/base.html' %}
+</html>
+<head>
+  <title>Add a New Author</title>
+  <meta name=viewport content='width=device-width', initial-scale=1.0>
+</head>
+
+<body>
+  {% block content %}
+  <h2>Lit For Brains Presents</h2>
+  <h1>The Great Books of the Western World</h1>
+  <h2>Add New Book for {{author.last_name}}</h2>
+  <form action = '{{url_for('addBook', author = author.last_name)}}' method = 'post'>
+    <p>Name:</p>
+      <input type='text' size='30' name='name'><br>
+    <p>Image URL:</p>
+      <input type='text' size='50' name='image'><br>
+    <p>Amazon Link:</p>
+      <input type='text' size='50' name='amazon'><br>
+    <p>Description:</p>
+      <input type='text' size='100' name='description'><br>
+    <input type='submit' class='button' value='Add Book'><br>
+  </form>
+  {% endblock %}
+</body>

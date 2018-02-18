@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+{% extends 'bootstrap/base.html' %}
+</html>
+<head>
+  <title>Delete Author</title>
+  <meta name=viewport content='width=device-width', initial-scale=1.0>
+</head>
+
+<body>
+  {% block content %}
+  <h2>Lit For Brains Presents</h2>
+  <h1>The Great Books of the Western World</h1>
+  <h2>Delete Author</h2>
+  <h3>Are you sure you want to delete {{author.last_name}}?</h3>
+  <form action='{{url_for('deleteAuthor', author = author.last_name)}}' method='post'>
+    <br><input type='submit' class='button' value='Yes'>
+  </form>
+  <a href="{{url_for('showAllAuthors')}}">No</a>
+  {% endblock %}
+</body>
