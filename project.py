@@ -119,9 +119,14 @@ def editBook(author, book):
         return "Book doesn't exist!"
 
 
-
-@app.route('/<author>/<book>/delete')
+@app.route('/<author>/<book>/delete', methods=['GET', 'POST'])
 def deleteBook(author, book):
+    author = session.query(Author).filter_by(last_name = author.title()).first()
+    book = session.query(Book).filter_by(name = book).first()
+    if request.method == 'POST':
+        session.delete(book)
+        session.commit()
+        return redirect(url_for('showAuthor', author = author.last_name))
     return render_template('deletebook.html', author = author, book = book)
 
 if __name__ == '__main__':
