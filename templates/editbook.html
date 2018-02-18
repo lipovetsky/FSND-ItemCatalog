@@ -22,6 +22,7 @@
       <input type='text' name='description' size='100' value='{{book.description}}'><br>
     <input type='submit' value='Edit'>
   </form>
+  <p><a href="{{url_for('showBook', author = author.last_name, book = book.name)}}">Return to Book Page</a></p>
   {% endblock %}
 </body>
 </html>
