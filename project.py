@@ -6,6 +6,8 @@ from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
 from database import Base, Author, Book
 
+from flask import session as login_session
+import random, string
 app = Flask(__name__)
 Bootstrap(app)
 
@@ -15,6 +17,12 @@ Base.metadata.create_all(engine)
 
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
+
+@app.route('/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
+    login_session['state'] = state
+    return "The current session state is %s" % login_session['state']
 
 @app.route('/')
 @app.route('/authors')
