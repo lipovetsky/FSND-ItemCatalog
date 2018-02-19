@@ -8,6 +8,16 @@ from database import Base, Author, Book
 
 from flask import session as login_session
 import random, string
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.client import FlowExchangeError
+import httplib2
+import json
+from flask import make_response
+import requests
+
+CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = "Great Books Quest Library"
+
 app = Flask(__name__)
 Bootstrap(app)
 
@@ -20,9 +30,86 @@ session = DBSession()
 
 @app.route('/login')
 def showLogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
+
+@app.route('/gconnect', methods=['POST'])
+def gconnect():
+    if request.args.get('state') != login_session['state']:
+        response = make_response(json.dumps('Invalid state parameter'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+    #Get auth code
+    code = request.data
+
+    try:
+        # Upgrade auth code to credentials
+        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow.redirect_url = 'postmessage'
+        credentials = oauth_flow.step2_exchange(code)
+    except FlowExchangeError:
+        response = make_response(json.dumps('Failed to upgrade authorization code.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+    #Check validity of access token
+    access_token = credentials.access_token
+    url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % access_token)
+    h = httplib2.Http()
+    result = json.loads(h.request(url, 'GET')[1])
+    #If error, abort
+    if result.get('error') is not None:
+        response = make_response(json.dumps(result.get('error')), 500)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+    #Verify access token used for correct user
+    gplus_id = credentials.id_token['sub']
+    if result['user_id'] != gplus_id:
+        response = make_response(json.dumps("Token's User ID is not the given User ID"), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+    #Verify access token is valid for this app
+    if result['issued_to'] != CLIENT_ID:
+        response = make_response(json.dumps("Token's client ID doesn't match app's"), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+    stored_access_token = login_session.get('access_token')
+    stored_gplus_id = login_session.get('gplus_id')
+    if stored_access_token is not None and gplus_id == stored_gplus_id:
+        response = make_response(json.dumps("Current user already connected."), 200)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+    #Store access token in session (for later use)
+    login_session['access_token'] = credentials.access_token
+    login_session['gplus_id'] = gplus_id
+
+    #Get user info
+    userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
+    params = {'access_token' : credentials.access_token, 'alt' : 'json'}
+    answer = requests.get(userinfo_url, params = params)
+
+    data = answer.json
+
+    login_session['username'] = data['name']
+    login_session['picture'] = data['picture']
+    login_session['email'] = data['email']
+
+    output = ''
+    output += '<h1>Welcome, '
+    output += login_session['username']
+    output += '!</h1>'
+    output += '<img src="'
+    output += login_session['picture']
+    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    flash("You are now logged in as %s" % login_session['username'])
+    return output
+
+
 
 @app.route('/')
 @app.route('/authors')
