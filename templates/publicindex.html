@@ -22,7 +22,6 @@
     {% endif %}
     {% endwith %}
 
-  <h3><a href="{{url_for('newAuthor')}}">Add Author</a></h3>
   {% for author in authors %}
   <a href="{{url_for('showAuthor', author = author.last_name)}}">
     <img src="{{author.photo}}" width="300" height="400"></a>

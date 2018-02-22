@@ -2,6 +2,7 @@
 <html>
 {% extends 'bootstrap/base.html' %}
 {% include 'header.html' %}
+
 <head>
   <title>{{author.last_name}}</title>
   <meta name=viewport content='width=device-width', initial-scale=1.0>
@@ -12,12 +13,9 @@
   <h2>Lit For Brains Presents</h2>
   <h1><a href="{{url_for('showAllAuthors')}}">The Great Books of the Western World</a></h1>
   <br><h2>{{author.last_name.title()}}</h2>
-  <h3><a href="{{url_for('editAuthor', author = author.last_name.title())}}">Edit Author</a></h3>
-  <h3><a href="{{url_for('deleteAuthor', author = author.last_name.title())}}">Delete Author</a></h3>
   <img src="{{author.photo}}" width="300" height="400">
   <br><p>Motto: {{author.bio}}</p>
   <h2>Books</h2>
-  <h3><a href="{{url_for('addBook', author = author.last_name)}}">Add Book</a></h3>
   {% for book in books %}
   <h2>{{book.name}}</h2>
   <a href="{{url_for('showBook', author = author.last_name, book = book.name)}}">
