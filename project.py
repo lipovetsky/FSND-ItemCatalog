@@ -89,7 +89,7 @@ def gconnect():
     #Store access token in session (for later use)
     login_session['access_token'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
-    # login_session['provider'] = 'google'
+    login_session['provider'] = 'google'
 
     #Get user info
     userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
@@ -158,10 +158,11 @@ def gdisconnect():
         del login_session['email']
         del login_session['picture']
         del login_session['user_id']
-        # del login_session['provider']
+        del login_session['provider']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
-        return response
+        flash("You have been logged out")
+        return redirect(url_for('showAllAuthors'))
     else:
         response = make_response(json.dumps('Failed to revoke token for given user.'), 400)
         response.headers['Content-Type'] = 'application/json'
