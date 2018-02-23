@@ -13,7 +13,7 @@
 
 <body>
   {% block content %}
-  <br><h2>Main Page</h2>
+  <div class="container text-center">
   {% with messages = get_flashed_messages() %}
     {% if messages %}
     <p class="flashes">
@@ -23,8 +23,8 @@
     </p>
     {% endif %}
     {% endwith %}
+  </div>
 
-  <h3><a href="{{url_for('newAuthor')}}">Add Author</a></h3>
   <div class="container">
   {% for author in authors %}
   <div class="row text-center center-block">
@@ -35,6 +35,7 @@
     </div>
 
   {% endfor %}
+  <h3><a href="{{url_for('newAuthor')}}">Add Author</a></h3>
   </div>
   {% endblock %}
 </body>
