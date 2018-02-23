@@ -5,6 +5,10 @@
 <head>
   <title>The Great Books of the Western World - Lit For Brains</title>
   <meta name=viewport content="width=device-width, initial-scale=1.0">
+  {% block styles %}
+  {{super()}}
+  <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
+  {% endblock %}
 </head>
 
 <body>
@@ -20,12 +24,17 @@
     {% endif %}
     {% endwith %}
 
+  <div class="container">
   {% for author in authors %}
-  <a href="{{url_for('showAuthor', author = author.last_name)}}">
-    <img src="{{author.photo}}" width="300" height="400"></a>
-  <br>{{author.last_name.title()}}
-  <br>{{author.bio}}<br><br>
+  <div class="row text-center center-block">
+    <div class="col-md-4">
+        <a href="{{url_for('showAuthor', author = author.last_name)}}">
+          <img src="{{author.photo}}" width="300" height="400"></a><br>
+          <h3>{{author.last_name.title()}}</h3><br><br>
+    </div>
+
   {% endfor %}
+  </div>
   {% endblock %}
 </body>
 </html>
