@@ -287,6 +287,7 @@ def editBook(author, book):
             book.image = request.form['image']
             book.amazon = request.form['amazon']
             book.description = request.form['description']
+            book.author.last_name = request.form['author']
             session.commit()
             return redirect(url_for('showBook', author = author.last_name, book = book.name))
         else:

@@ -33,9 +33,11 @@
           <img src="{{author.photo}}" width="300" height="400"></a><br>
           <h3>{{author.last_name.title()}}</h3><br><br>
     </div>
-
   {% endfor %}
-  <h3><a href="{{url_for('newAuthor')}}">Add Author</a></h3>
+  </div>
+    <div class="row">
+      <h3><a href="{{url_for('newAuthor')}}">Add Author</a></h3>
+    </div>
   </div>
   {% endblock %}
 </body>
