@@ -14,18 +14,20 @@
 
 <body>
   {% block content %}
-  <h2>Add New Author</h2>
-  <form action = '{{url_for('newAuthor')}}' method='post'
-  enctype='multipart/form-data'>
-    <span><h3>Last Name:</h3></span>
-    <br><input type='text' size='30' name='authorname'>
-    <span><h3>Bio:</h3></span>
-    <br><input type='text' size='50' name='bio'>
-    <span><h3>Image URL:</h3></span>
-    <br><input type='text' size='50' name='picture'>
-    <br><input type='submit' class='button' value='Submit'>
-  </form>
-  <a href="{{url_for('showAllAuthors')}}">Go Back to Main Page</a>
-
+  <div class="container text-center">
+    <h2>Add New Author</h2>
+    <div class="row">
+        <form action = '{{url_for('newAuthor')}}' method='post' enctype='multipart/form-data'>
+        <span><h3>Last Name:</h3></span>
+        <br><input type='text' size='30' name='authorname'>
+        <span><h3>Bio:</h3></span>
+        <br><input type='text' size='50' name='bio'>
+        <span><h3>Image URL:</h3></span>
+        <br><input type='text' size='50' name='picture'>
+        <br><br><input type='submit' class='button' value='Submit'>
+      </form>
+    </div>
+    <br><a href="{{url_for('showAllAuthors')}}">Go Back to Main Page</a>
+  </div>
   {% endblock %}
 </body>
