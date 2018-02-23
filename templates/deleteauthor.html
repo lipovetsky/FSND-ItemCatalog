@@ -13,12 +13,16 @@
 
 <body>
   {% block content %}
-  <h2>Delete Author</h2>
-  <h3>Are you sure you want to delete {{author.last_name}}?</h3>
-  <form action='{{url_for('deleteAuthor', author = author.last_name)}}' method='post'>
-    <br><input type='submit' class='button' value='Yes'>
-  </form>
-  <br><a href="{{url_for('showAuthor', author = author.last_name)}}">Back to Author Page</a>
+  <div class="container text-center">
+    <h2>Delete Author</h2>
+    <div class="row">
+      <h3>Are you sure you want to delete {{author.last_name}}?</h3>
+      <form action='{{url_for('deleteAuthor', author = author.last_name)}}' method='post'>
+        <br><input type='submit' size='50' class='delete-button' value='Yes'>
+      </form>
+    </div>
+    <br><a href="{{url_for('showAuthor', author = author.last_name)}}">Back to Author Page</a>
+  </div>
   {% endblock %}
 </body>
 </html>
