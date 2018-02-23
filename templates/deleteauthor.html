@@ -14,7 +14,7 @@
 <body>
   {% block content %}
   <div class="container text-center">
-    <h2>Delete Author</h2>
+    <h2>{{author.last_name}}</h2>
     <div class="row">
       <h3>Are you sure you want to delete {{author.last_name}}?</h3>
       <form action='{{url_for('deleteAuthor', author = author.last_name)}}' method='post'>
