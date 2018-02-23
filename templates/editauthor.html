@@ -13,18 +13,21 @@
 
 <body>
   {% block content %}
-  <h2>Edit Author</h2>
-  <br>
-  <form action='{{url_for('editAuthor', author = author.last_name)}}' method='post'>
-    <span><h3>Last Name:</h3></span>
-    <br><input type='text' size='30' name='authorname' value='{{author.last_name}}'>
-    <span><h3>Bio:</h3></span>
-    <br><input type='text' size='50' name='bio' value='{{author.bio}}'>
-    <span><h3>Image URL:</h3></span>
-    <br><input type='text' size='50' name='picture' value='{{author.photo}}'>
-    <br><input type='submit' class='button' value='Edit'>
-  </form>
-  <p><a href="{{url_for('showAuthor', author = author.last_name)}}">Back to Author Page</a></p>
+  <div class="container text-center">
+    <h2>Edit Author</h2>
+    <div class="row">
+      <form action='{{url_for('editAuthor', author = author.last_name)}}' method='post'>
+        <span><h3>Last Name:</h3></span>
+        <br><input type='text' size='30' name='authorname' value='{{author.last_name}}'>
+        <span><h3>Bio:</h3></span>
+        <br><input type='text' size='50' name='bio' value='{{author.bio}}'>
+        <span><h3>Image URL:</h3></span>
+        <br><input type='text' size='50' name='picture' value='{{author.photo}}'>
+        <br><br><input type='submit' class='button' value='Edit'>
+      </form>
+    </div>
+    <br><a href="{{url_for('showAuthor', author = author.last_name)}}">Back to Author Page</a>
+  </div>
   {% endblock %}
 </body>
 </html>
