@@ -9,8 +9,6 @@
 
 <body>
   {% block content %}
-  <h2>Lit For Brains Presents</h2>
-  <h1><a href="{{url_for('showAllAuthors')}}">The Great Books of the Western World</a></h1>
   <h2>Add New Book for {{author.last_name}}</h2>
   <form action = '{{url_for('addBook', author = author.last_name)}}' method = 'post'>
     <p>Name:</p>

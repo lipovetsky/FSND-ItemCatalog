@@ -9,8 +9,6 @@
 
 <body>
   {% block content %}
-  <h2>Lit For Brains Presents</h2>
-  <h1><a href="{{url_for('showAllAuthors')}}">The Great Books of the Western World</a></h1>
   <br><h2>Main Page</h2>
   {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -23,12 +21,17 @@
     {% endwith %}
 
   <h3><a href="{{url_for('newAuthor')}}">Add Author</a></h3>
+  <div class="container">
   {% for author in authors %}
-  <a href="{{url_for('showAuthor', author = author.last_name)}}">
-    <img src="{{author.photo}}" width="300" height="400"></a>
-  <br>{{author.last_name.title()}}
-  <br>{{author.bio}}<br><br>
+  <div class="row text-center center-block">
+    <div class="col-md-4">
+        <a href="{{url_for('showAuthor', author = author.last_name)}}">
+          <img src="{{author.photo}}" width="300" height="400"></a><br>
+          <h3>{{author.last_name.title()}}</h3><br><br>
+    </div>
+
   {% endfor %}
+  </div>
   {% endblock %}
 </body>
 </html>

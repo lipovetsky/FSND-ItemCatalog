@@ -9,8 +9,6 @@
 
 <body>
   {% block content %}
-  <h2>Lit For Brains Presents</h2>
-  <h1><a href="{{url_for('showAllAuthors')}}">The Great Books of the Western World</a></h1>
   <h2>Delete Author</h2>
   <h3>Are you sure you want to delete {{author.last_name}}?</h3>
   <form action='{{url_for('deleteAuthor', author = author.last_name)}}' method='post'>
