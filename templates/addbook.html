@@ -13,19 +13,23 @@
 
 <body>
   {% block content %}
-  <h2>Add New Book for {{author.last_name}}</h2>
-  <form action = '{{url_for('addBook', author = author.last_name)}}' method = 'post'>
-    <p>Name:</p>
-      <input type='text' size='30' name='name'><br>
-    <p>Image URL:</p>
-      <input type='text' size='50' name='image'><br>
-    <p>Amazon Link:</p>
-      <input type='text' size='50' name='amazon'><br>
-    <p>Description:</p>
-      <input type='text' size='100' name='description'><br>
-    <input type='submit' class='button' value='Add Book'><br>
-    <p><a href="{{url_for('showAuthor', author = author.last_name)}}">Return to Author Page</a></p>
-  </form>
+  <div class="container text-center">
+    <h2>Add New Book for {{author.last_name}}</h2>
+    <div class="row">
+      <form action ='{{url_for('addBook', author = author.last_name)}}' method ='post'>
+        <h3>Name:</h3>
+          <br><input type='text' size='30' name='name'><br>
+        <h3>Image URL:</h3>
+          <br><input type='text' size='50' name='image'><br>
+        <h3>Amazon URL:</h3>
+          <br><input type='text' size='50' name='amazon'><br>
+        <h3>Description:</h3>
+          <br><input type='text' size='100' name='description'><br>
+        <br><input type='submit' class='button' value='Add Book'><br>
+    </div>
+      <br><a href="{{url_for('showAuthor', author = author.last_name)}}">Return to Author Page</a>
+    </form>
+  </div>
   {% endblock %}
 </body>
 </html>
