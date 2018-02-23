@@ -13,16 +13,17 @@
 
 <body>
   {% block content %}
-  <br><h2>Main Page</h2>
+  <div class="container text-center">
   {% with messages = get_flashed_messages() %}
     {% if messages %}
     <p class="flashes">
       {% for message in messages %}
-      <center><h3 class="blue">{{message}}</h3></center>
+      <center><h3 class="blue">{{message}}</h3></center><br>
       {% endfor %}
     </p>
     {% endif %}
     {% endwith %}
+  </div>
 
   <div class="container">
   {% for author in authors %}
