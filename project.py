@@ -173,7 +173,7 @@ def gdisconnect():
 @app.route('/')
 @app.route('/authors')
 def showAllAuthors():
-    authors = session.query(Author).all()
+    authors = session.query(Author).order_by(Author.last_name).all()
     if 'username' in login_session:
         return render_template('index.html', authors = authors)
     return render_template('publicindex.html', authors = authors)
@@ -214,9 +214,11 @@ def newAuthor():
 @app.route('/<author>/edit', methods=['GET', 'POST'])
 # @app.route('/<authorname>/edit')
 def editAuthor(author):
+    author = session.query(Author).filter_by(last_name = author.title()).first()
     if 'username' not in login_session:
         return redirect('/login')
-    author = session.query(Author).filter_by(last_name = author.title()).first()
+    elif login_session['user_id'] != author.user_id:
+        return redirect(url_for('showAuthor', author = author.last_name))
     if author:
         if request.method == 'POST':
             author.last_name = request.form['authorname'].title()
@@ -232,9 +234,11 @@ def editAuthor(author):
 
 @app.route('/<author>/delete', methods=['GET', 'POST'])
 def deleteAuthor(author):
+    author = session.query(Author).filter_by(last_name = author).first()
     if 'username' not in login_session:
         return redirect('/login')
-    author = session.query(Author).filter_by(last_name = author).first()
+    elif login_session['user_id'] != author.user_id:
+        return redirect(url_for('showAuthor', author = author.last_name))
     if request.method == 'POST':
         session.delete(author)
         session.commit()
@@ -250,18 +254,19 @@ def showBook(author, book):
             if login_session['user_id'] == book.user_id:
                 return render_template('bookpage.html', author = author, book = book)
         return render_template('publicbookpage.html', author = author, book = book)
-
-    else: return "Book doesn't exist!"
+    else:
+        return "Book doesn't exist!"
 
 @app.route('/<author>/add', methods=['GET', 'POST'])
 def addBook(author):
+    author = session.query(Author).filter_by(last_name = author.title()).first()
     if 'username' not in login_session:
         return redirect('/login')
-    author = session.query(Author).filter_by(last_name = author.title()).first()
+    elif login_session['user_id'] != author.user_id:
+        return redirect(url_for('showAuthor', author = author.last_name))
     if request.method == 'POST':
         newBook = (request.form['name'].title(), request.form['image'],
                     request.form['amazon'], request.form['description'])
-
         if newBook:
             userID = login_session['user_id']
             session.add(Book(name = newBook[0], image = newBook[1],
@@ -277,10 +282,12 @@ def addBook(author):
 
 @app.route('/<author>/<book>/edit', methods=['GET', 'POST'])
 def editBook(author, book):
+    author = session.query(Author).filter_by(last_name = author.title()).first()
     if 'username' not in login_session:
         return redirect('/login')
+    elif login_session['user_id'] != author.user_id:
+        return redirect(url_for('showAuthor', author = author.last_name))
     allauthors = session.query(Author).all()
-    author = session.query(Author).filter_by(last_name = author.title()).first()
     book = session.query(Book).filter_by(name = book.title()).first()
     if author and book:
         if request.method == 'POST':
@@ -303,9 +310,11 @@ def editBook(author, book):
 
 @app.route('/<author>/<book>/delete', methods=['GET', 'POST'])
 def deleteBook(author, book):
+    author = session.query(Author).filter_by(last_name = author.title()).first()
     if 'username' not in login_session:
         return redirect('/login')
-    author = session.query(Author).filter_by(last_name = author.title()).first()
+    elif login_session['user_id'] != author.user_id:
+        return redirect(url_for('showAuthor', author = author.last_name))
     book = session.query(Book).filter_by(name = book).first()
     if request.method == 'POST':
         session.delete(book)
