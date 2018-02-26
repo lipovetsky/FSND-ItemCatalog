@@ -16,13 +16,22 @@
   <div class="container text-center">
     <h2>Edit Book</h2>
     <h2>{{book.name}}</h2>
-    <h2>by {{author.last_name}}</h2>
+    <h2>by {{theauthor.last_name}}</h2>
     <div class="row">
-      <form action='{{url_for('editBook', author = author.last_name, book = book.name)}}' method='post'>
+      <form action='{{url_for('editBook', author = theauthor.last_name, book = book.name)}}' method='post'>
         <h3>Name:</h3>
           <br><input type='text' name='name' size='30' value='{{book.name}}'><br>
         <h3>Author:</h3>
-          <br><input type='text' name='author' size='30' value='{{book.author.last_name}}'><br>
+          <br><div class="dropdownauthor text-center">
+            <select name='author' class="selectpicker" data-width="300px" id="sell">
+              {% for authors in author %}
+              {% if authors.user_id == session.user_id and authors.last_name != theauthor.last_name %}
+              <option>{{authors.last_name}}</option>
+              {% endif %}
+              {% endfor %}
+              <option selected>{{theauthor.last_name}}</option>
+            </select>
+          </div>
         <h3>Image URL:</h3>
           <br><input type='text' name='image' size='50' value='{{book.image}}'><br>
         <h3>Amazon Link:</h3>
@@ -32,7 +41,7 @@
         <br><input type='submit' value='Edit'>
       </form>
     </div>
-    <br><a href="{{url_for('showBook', author = author.last_name, book = book.name)}}">Return to Book Page</a>
+    <br><a href="{{url_for('showBook', author = theauthor.last_name, book = book.name)}}">Return to Book Page</a>
   </div>
   {% endblock %}
 </body>

@@ -152,13 +152,13 @@ def gdisconnect():
     # print 'Result is '
     # print result
     if result['status'] == '200':
-        del login_session['provider']
         del login_session['access_token']
         del login_session['gplus_id']
         del login_session['username']
         del login_session['email']
         del login_session['picture']
         del login_session['user_id']
+        del login_session['provider']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         flash("You have been logged out")
@@ -245,7 +245,7 @@ def deleteAuthor(author):
 def showBook(author, book):
     author = session.query(Author).filter_by(last_name = author.title()).first()
     book = session.query(Book).filter_by(name = book.title()).first()
-    if author and book:
+    if author and book and author.id == book.author_id:
         if 'username' in login_session:
             if login_session['user_id'] == book.user_id:
                 return render_template('bookpage.html', author = author, book = book)
@@ -279,6 +279,7 @@ def addBook(author):
 def editBook(author, book):
     if 'username' not in login_session:
         return redirect('/login')
+    allauthors = session.query(Author).all()
     author = session.query(Author).filter_by(last_name = author.title()).first()
     book = session.query(Book).filter_by(name = book.title()).first()
     if author and book:
@@ -287,11 +288,15 @@ def editBook(author, book):
             book.image = request.form['image']
             book.amazon = request.form['amazon']
             book.description = request.form['description']
-            book.author.last_name = request.form['author']
+            thelastname = request.form['author']
+            newauthor = session.query(Author).filter_by(last_name = thelastname).first()
+            book.author_id = newauthor.id
+            thelastname = request.form['author']
             session.commit()
-            return redirect(url_for('showBook', author = author.last_name, book = book.name))
+
+            return redirect(url_for('showBook', author = book.author.last_name, book = book.name))
         else:
-            return render_template('editbook.html', author = author, book = book)
+            return render_template('editbook.html', theauthor = author, author = allauthors, book = book)
     else:
         return "Book doesn't exist!"
 
