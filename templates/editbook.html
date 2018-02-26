@@ -23,7 +23,7 @@
           <br><input type='text' name='name' size='30' value='{{book.name}}'><br>
         <h3>Author:</h3>
           <br><div class="dropdownauthor text-center">
-            <select name='author' class="selectpicker" data-width="300px" id="sell">
+            <select name='author' class="form-control center-block" id="sell">
               {% for authors in author %}
               {% if authors.user_id == session.user_id and authors.last_name != theauthor.last_name %}
               <option>{{authors.last_name}}</option>

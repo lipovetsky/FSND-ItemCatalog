@@ -7,6 +7,6 @@ body {
   height: 30px;
 }
 
-.dropdownauthor {
-  text-align: center;
+.form-control {
+  width: 20%;
 }
