@@ -1,5 +1,6 @@
 body {
   background-color: #efefef;
+  background: url(/static/dust_scratches.png) repeat 0 0;
 }
 
 .delete-button {
@@ -10,3 +11,13 @@ body {
 .form-control {
   width: 20%;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Corben', Georgia, Times, serif;
+}
+p, div {
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
+}
+
+
+/* cite this website: https://24ways.org/2012/how-to-make-your-site-look-half-decent/ */

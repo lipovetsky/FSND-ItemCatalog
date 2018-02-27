@@ -185,9 +185,14 @@ def showAuthorsJSON():
     return jsonify([author.serialize for author in authors])
 
 @app.route('/books/json')
-def showBooksJSON():
-    books = session.query(Book).order_by(Book.author_id).all()
+def showAllBooksJSON():
+    books = session.query(Book).filter(Book.author_id == Author.id).order_by(Author.last_name).all()
     return jsonify([thebook.serialize for thebook in books])
+
+@app.route('/<author>/json')
+def showBooksJSON(author):
+    books = session.query(Book).join(Author).filter(Author.last_name == author).all()
+    return jsonify([thebooks.serialize for thebooks in books])
 
 @app.route('/<author>')
 def showAuthor(author):
