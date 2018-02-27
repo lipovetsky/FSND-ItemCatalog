@@ -178,6 +178,17 @@ def showAllAuthors():
         return render_template('index.html', authors = authors)
     return render_template('publicindex.html', authors = authors)
 
+@app.route('/json')
+@app.route('/authors/json')
+def showAuthorsJSON():
+    authors = session.query(Author).order_by(Author.last_name.desc()).all()
+    return jsonify([author.serialize for author in authors])
+
+@app.route('/books/json')
+def showBooksJSON():
+    books = session.query(Book).order_by(Book.author_id).all()
+    return jsonify([thebook.serialize for thebook in books])
+
 @app.route('/<author>')
 def showAuthor(author):
     theAuthor = session.query(Author).filter_by(last_name = author.title()).first()
