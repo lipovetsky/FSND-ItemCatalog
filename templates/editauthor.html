@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<div class="container bg">
 {% extends 'bootstrap/base.html' %}
 {% include 'header.html' %}
 <head>
@@ -13,7 +14,7 @@
 
 <body>
   {% block content %}
-  <div class="container text-center">
+  <div class="container text-center bg">
     <h2>Edit Author</h2>
     <div class="row">
       <form action='{{url_for('editAuthor', author = author.last_name)}}' method='post'>
@@ -30,4 +31,5 @@
   </div>
   {% endblock %}
 </body>
+</div>
 </html>

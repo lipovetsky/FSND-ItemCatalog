@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="image">
 {% extends 'bootstrap/base.html' %}
 {% include 'header.html' %}
 <head>
@@ -11,7 +11,7 @@
   {% endblock %}
 </head>
 
-<body>
+<body class="bg">
   {% block content %}
   <div class="container text-center">
   {% with messages = get_flashed_messages() %}

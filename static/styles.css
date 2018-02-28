@@ -1,8 +1,8 @@
 body {
   background-color: #efefef;
-  background: url(/static/wood5.png);
-  background-repeat: repeat-y;
-  background-position: right top;
+  background: url('/static/wood5.png');
+  background-repeat: repeat-x;
+  background-size: 27%;
 }
 
 img {
@@ -21,11 +21,15 @@ a {
   color: black;
 }
 
-
 p, div {
     font-family: 'Nobile', Helvetica, Arial, sans-serif;
 }
 
+.bg {
+  background: #fff !important;
+  background-size: 100% !important;
+
+}
 .delete-button {
   width: 60px;
   height: 30px;
