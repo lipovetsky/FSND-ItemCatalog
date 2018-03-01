@@ -8,6 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% block styles %}
   {{ super() }}
+  <style>
+  body {
+    background-size: 33% !important;
+  }
+  </style>
   <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
   {% endblock %}
 </head>
@@ -30,6 +35,6 @@
     <br><a href="{{url_for('showAuthor', author = author.last_name)}}">Back to Author Page</a>
   </div>
   {% endblock %}
-</body>
 </div>
+</body>
 </html>

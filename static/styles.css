@@ -25,11 +25,6 @@ p, div {
     font-family: 'Nobile', Helvetica, Arial, sans-serif;
 }
 
-.bg {
-  background: #fff !important;
-  background-size: 100% !important;
-
-}
 .delete-button {
   width: 60px;
   height: 30px;
