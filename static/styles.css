@@ -2,7 +2,7 @@ body {
   background-color: #efefef;
   background: url('/static/wood5.png');
   background-repeat: repeat-x;
-  background-size: 27%;
+  background-size: 399px;
 }
 
 img {
@@ -32,6 +32,10 @@ p, div {
 
 .form-control {
   width: 20%;
+}
+
+.center-block {
+  float: none;
 }
 
 /* cite this website: https://24ways.org/2012/how-to-make-your-site-look-half-decent/ */

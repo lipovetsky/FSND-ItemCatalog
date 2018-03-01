@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% block styles %}
   {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
   <style>
   body {
-    background-size: 33% !important;
+    background-size: 570px;
   }
   </style>
-  <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
   {% endblock %}
 </head>
 

@@ -8,6 +8,11 @@
   {% block styles %}
   {{ super() }}
   <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
+  <style>
+  body {
+    background-size: 650px;
+  }
+  </style>
   {% endblock %}
 </head>
 
