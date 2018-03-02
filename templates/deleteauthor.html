@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 {% extends 'bootstrap/base.html' %}
-{% include 'header.html' %}
-<head>
-  <title>Delete Author</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
-  {% endblock %}
-</head>
+  <head>
+    {% block head %}
+    {% include 'header.html' %}
+    <title>Delete Author</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
+    {% endblock %}
+    {% endblock %}
+  </head>
 
 <body>
   {% block content %}

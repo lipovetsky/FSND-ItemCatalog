@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-{% extends 'bootstrap/base.html' %}
-{% include 'header.html' %}
 <html>
-<head>
-  <title>The Great Books of the Western World - Lit For Brains</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block styles %}
-  {{super()}}
-  <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
- </script>
-  <script src="//apis.google.com/js/platform.js?onload=start">
-  </script>
-  <style>
-  body {
-    background-size: 450px;
-  }
-  </style>
+{% extends 'bootstrap/base.html' %}
+  <head>
+    {% block head %}
+    {% include 'header.html' %}
+    <title>The Great Books of the Western World - Lit For Brains</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+   </script>
+    <script src="//apis.google.com/js/platform.js?onload=start">
+    </script>
+    <style>
+    body {
+      background-size: 450px;
+    }
+    </style>
+    {% endblock %}
+    <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+
+
+  <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
   {% endblock %}
-  <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
-
-
-<!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
-
-
-</head>
+  </head>
 
 
 <body>
@@ -33,7 +33,7 @@
 <!-- GOOGLE PLUS SIGN IN-->
 
 
-          <br><div id="signinButton" align="center">
+          <br><div id="signinButton">
           <span class="g-signin"
             data-scope="openid email"
             data-clientid="502432332243-30oj7jt3u8510ftt7cktaldsh6gsskd4.apps.googleusercontent.com"
@@ -80,7 +80,6 @@ function signInCallback(authResult) {
 
 
 <!--END GOOGLE PLUS SIGN IN -->
-
+  {% endblock %}
   </body>
-{% endblock %}
   </html>

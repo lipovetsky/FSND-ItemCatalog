@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
 {% extends 'bootstrap/base.html' %}
-{% include 'header.html' %}
-<head>
-  <title>{{author.last_name}}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
-  {% endblock %}
-</head>
+  <head>
+    {% block head %}
+    {% include 'header.html' %}
+    <title>{{author.last_name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
+    {% endblock %}
+    {% endblock %}
+  </head>
 
 <body>
   {% block content %}
   <div class="container text-center">
     <h2>{{book.name}}</h2>
     <h2>by {{author.last_name.title()}} </h2>
-    <a href="{{book.amazon}}" target="_blank"><img src="{{book.image}}" width="300" height="400"></a>
+    <a href="{{book.amazon}}" target="_blank"><img src="{{book.image}}" width="300" height="400" alt="Book Image"></a>
     <h3>{{book.description}}</h3>
   </div>
   <div class="container text-center">
     <br><br>
-    <a href="{{url_for('showAuthor', author=author.last_name)}}"><h4>Return to {{author.last_name.title()}}'s Page</h4>
+    <a href="{{url_for('showAuthor', author=author.last_name)}}"><h4>Return to {{author.last_name.title()}}'s Page</h4></a>
   </div>
   {% endblock %}
 </body>

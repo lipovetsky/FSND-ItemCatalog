@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
-<div class="container bg">
 {% extends 'bootstrap/base.html' %}
-{% include 'header.html' %}
-<head>
-  <title>Edit {{author.last_name}}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
-  <style>
-  body {
-    background-size: 570px;
-  }
-  </style>
-  {% endblock %}
-</head>
+  <head>
+    {% block head %}
+    {% include 'header.html' %}
+    <title>Edit {{author.last_name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
+    <style>
+    body {
+      background-size: 570px;
+    }
+    </style>
+    {% endblock %}
+    {% endblock %}
+  </head>
 
 <body>
   {% block content %}
@@ -23,11 +24,11 @@
     <h2>Edit Author</h2>
     <div class="row">
       <form action='{{url_for('editAuthor', author = author.last_name)}}' method='post'>
-        <span><h3>Last Name:</h3></span>
+        <h3><span>Last Name:</span></h3>
         <br><input type='text' size='30' name='authorname' value='{{author.last_name}}'>
-        <span><h3>Bio:</h3></span>
+        <h3><span>Bio:</span></h3>
         <br><input type='text' size='50' name='bio' value='{{author.bio}}'>
-        <span><h3>Image URL:</h3></span>
+        <h3><span>Image URL:</span></h3>
         <br><input type='text' size='50' name='picture' value='{{author.photo}}'>
         <br><br><input type='submit' class='button' value='Edit'>
       </form>
@@ -35,6 +36,5 @@
     <br><a href="{{url_for('showAuthor', author = author.last_name)}}">Back to Author Page</a>
   </div>
   {% endblock %}
-</div>
 </body>
 </html>

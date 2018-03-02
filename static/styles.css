@@ -13,7 +13,7 @@ img {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Corben', Georgia, Times, serif;
+    font-family:  Georgia, Times, serif;
     color: black;
 }
 
@@ -22,7 +22,7 @@ a {
 }
 
 p, div {
-    font-family: 'Nobile', Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .delete-button {
@@ -36,6 +36,10 @@ p, div {
 
 .center-block {
   float: none;
+}
+
+#signinButton {
+  text-align: center;
 }
 
 /* cite this website: https://24ways.org/2012/how-to-make-your-site-look-half-decent/ */

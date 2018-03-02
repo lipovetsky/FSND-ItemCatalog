@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
 {% extends 'bootstrap/base.html' %}
-{% include 'header.html' %}
-<head>
-  <title>Add a New Author</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
-  <style>
-  body {
-    background-size: 510px;
-  }
-  </style>
-  {% endblock %}
-</head>
+  <head>
+    {% block head %}
+    {% include 'header.html' %}
+    <title>Add a New Author</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('.static', filename ='styles.css') }}">
+    <style>
+    body {
+      background-size: 510px;
+    }
+    </style>
+    {% endblock %}
+    {% endblock %}
+  </head>
 
 <body>
   {% block content %}
@@ -22,11 +24,11 @@
     <h2>Add New Author</h2>
     <div class="row">
         <form action = '{{url_for('newAuthor')}}' method='post' enctype='multipart/form-data'>
-        <span><h3>Last Name:</h3></span>
+        <h3><span>Last Name:</span></h3>
         <br><input type='text' size='30' name='authorname'>
-        <span><h3>Bio:</h3></span>
+        <h3><span>Bio:</span></h3>
         <br><input type='text' size='50' name='bio'>
-        <span><h3>Image URL:</h3></span>
+        <h3><span>Image URL:</span></h3>
         <br><input type='text' size='50' name='picture'>
         <br><br><input type='submit' class='button' value='Submit'>
       </form>

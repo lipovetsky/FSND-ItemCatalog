@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 {% extends 'bootstrap/base.html' %}
-{% include 'header.html' %}
-<head>
-  <title>{{author.last_name}}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
-  {% endblock %}
-</head>
+  <head>
+    {% block head %}
+    {% include 'header.html' %}
+    <title>{{author.last_name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
+    {% endblock %}
+    {% endblock %}
+  </head>
 
 <body>
   {% block content %}
@@ -17,7 +19,7 @@
     <div class="row">
       <div class="col text-center">
         <br><h2>{{author.last_name.title()}}</h2>
-        <img src="{{author.photo}}" width="300" height="400">
+        <img src="{{author.photo}}" width="300" height="400" alt="Author Image">
         <br><h3>{{author.bio}}</h3>
         <br><h2>Books</h2>
         </div>
@@ -29,7 +31,7 @@
     <div class="row text-center center-block">
       <div class="col-md-4">
         <a href="{{url_for('showBook', author = author.last_name, book = book.name)}}"><br>
-        <img src="{{book.image}}" width="300" height="400"></a><br>
+        <img src="{{book.image}}" width="300" height="400" alt="Book Image"></a><br>
         <h3>{{book.name}}</h3>
       </div>
     {% endfor %}
