@@ -35,6 +35,9 @@
         <img src="{{book.image}}" width="300" height="400"></a><br>
         <h3>{{book.name}}</h3>
       </div>
+      {% if not book %}
+      <h3>No Books</h3>
+      {% endif %}
     {% endfor %}
       </div>
     </div>
