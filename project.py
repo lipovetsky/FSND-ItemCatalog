@@ -106,7 +106,6 @@ def gconnect():
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
 
-
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -117,6 +116,7 @@ def gconnect():
     flash("You are now logged in as %s" % login_session['username'])
     return output
 
+
 def createUser(login_session):
     newUser = User(name = login_session['username'], email=login_session['email'],
                    picture = login_session['picture'])
@@ -125,9 +125,11 @@ def createUser(login_session):
     user = session.query(User).filter_by(email = login_session['email']).one()
     return user.id
 
+
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id = user_id).one()
     return user
+
 
 def getUserID(email):
     try:
@@ -135,6 +137,7 @@ def getUserID(email):
         return user.id
     except:
         return None
+
 
 @app.route('/gdisconnect')
 def gdisconnect():
@@ -169,7 +172,6 @@ def gdisconnect():
         return response
 
 
-
 @app.route('/')
 @app.route('/authors')
 def showAllAuthors():
@@ -184,15 +186,28 @@ def showAuthorsJSON():
     authors = session.query(Author).order_by(Author.last_name.desc()).all()
     return jsonify([author.serialize for author in authors])
 
+
 @app.route('/books/json')
 def showAllBooksJSON():
     books = session.query(Book).filter(Book.author_id == Author.id).order_by(Author.last_name).all()
     return jsonify([thebook.serialize for thebook in books])
 
+
 @app.route('/<author>/json')
-def showBooksJSON(author):
+def showBooksbyAuthorJSON(author):
     books = session.query(Book).join(Author).filter(Author.last_name == author).all()
     return jsonify([thebooks.serialize for thebooks in books])
+
+
+@app.route('/<author>/<book>/json')
+def showBookJSON(author, book):
+    author = session.query(Author).filter_by(last_name = author.title()).first()
+    if author:
+        book = session.query(Book).filter_by(name = book.title()).first()
+        if book:
+            return jsonify(book.serialize)
+    return "Book not found"
+
 
 @app.route('/<author>')
 def showAuthor(author):
@@ -205,6 +220,7 @@ def showAuthor(author):
         return render_template('publicauthorpage.html', author = theAuthor, books = books)
     else:
         return "Author doesn't exist!"
+
 
 @app.route('/authors/add', methods=['GET', 'POST'])
 def newAuthor():
@@ -226,6 +242,7 @@ def newAuthor():
             return render_template('newauthor.html')
     else:
         return render_template('newauthor.html')
+
 
 @app.route('/<author>/edit', methods=['GET', 'POST'])
 # @app.route('/<authorname>/edit')
@@ -261,6 +278,7 @@ def deleteAuthor(author):
         return redirect(url_for('showAllAuthors'))
     return render_template('deleteauthor.html', author = author)
 
+
 @app.route('/<author>/<book>')
 def showBook(author, book):
     author = session.query(Author).filter_by(last_name = author.title()).first()
@@ -272,6 +290,7 @@ def showBook(author, book):
         return render_template('publicbookpage.html', author = author, book = book)
     else:
         return "Book doesn't exist!"
+
 
 @app.route('/<author>/add', methods=['GET', 'POST'])
 def addBook(author):
@@ -295,6 +314,7 @@ def addBook(author):
             return render_template('addbook.html', author = author)
 
     return render_template('addbook.html', author = author)
+
 
 @app.route('/<author>/<book>/edit', methods=['GET', 'POST'])
 def editBook(author, book):
@@ -337,6 +357,7 @@ def deleteBook(author, book):
         session.commit()
         return redirect(url_for('showAuthor', author = author.last_name))
     return render_template('deletebook.html', author = author, book = book)
+
 
 if __name__ == '__main__':
     app.debug = True
