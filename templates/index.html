@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html class="image">
+<html>
 {% extends 'bootstrap/base.html' %}
-{% include 'header.html' %}
-<head>
-  <title>The Great Books of the Western World - Lit For Brains</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block styles %}
-  {{super()}}
-  <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
-  {% endblock %}
-</head>
+  <head>
+    {% block head %}
+    {% include 'header.html' %}
+    <title>The Great Books of the Western World - Lit For Brains</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
+    {% endblock %}
+    {% endblock %}
+  </head>
 
-<body class="bg">
+<body>
   {% block content %}
   <div class="container text-center">
   {% with messages = get_flashed_messages() %}
     {% if messages %}
     <p class="flashes">
       {% for message in messages %}
-      <center><h3 class="blue">{{message}}</h3></center><br>
+      <h3 class="blue">{{message}}</h3><br>
       {% endfor %}
-    </p>
     {% endif %}
     {% endwith %}
   </div>
@@ -30,7 +31,7 @@
   <div class="row text-center center-block">
     <div class="col-md-4">
         <a href="{{url_for('showAuthor', author = author.last_name)}}">
-          <img src="{{author.photo}}" width="300" height="400"></a><br>
+          <img src="{{author.photo}}" width="300" height="400" alt="Author Photo"></a><br>
           <h3>{{author.last_name.title()}}</h3><br><br>
     </div>
   {% endfor %}
