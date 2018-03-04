@@ -8,7 +8,7 @@ from! That's right. It's all here for you. It's even got 4 authors preloaded.
 You may ask yourself: how do I get it running? I'm glad you asked! I will
 show you how in this Readme.
 
-## Download the Files onto your computer
+## Download the Files
 
 Make sure you have Git installed. That being covered, it's time to clone the
 git repository to your machine. Here is the command:
@@ -19,7 +19,12 @@ git repository to your machine. Here is the command:
 ## Run the database
 
 Now that you have a copy of the program, it's time to run it! Make sure you
-run the vagrant environment first! It's got what you need!
+change into the directory of the repository you cloned:
+
+`cd FSND-ItemCatalog`
+
+Next, set up the vagrant environment! It may take a long time,
+but it's got what you need!
 
 `vagrant up`
 
@@ -29,7 +34,11 @@ Then, once it loads:
 
 Finally, change to the directory:
 
-`cd /vagrant/FSND-ItemCatalog`
+`cd /vagrant`
+
+You may also have to install Flask_Bootstrap with the following command:
+
+`sudo pip install flask_bootstrap`
 
 ## Enjoy the Show
 
@@ -37,9 +46,14 @@ Now, with a simple command, we can make this come to life!
 
 `python project.py`
 
+Just enter the following in your web browser to access the site:
+
+`http://localhost:5000/`
+
 Enjoy all the sights and sounds! Explore. Dream. Discover.
 
 
 ## Concluding Words
 
-This project is part of the Full Stack Nanodegree for Udacity. It is awesome!
+This project is part of the Full Stack Nanodegree for Udacity. You can make
+something similar, should you choose to enroll. The course is full of magic.
