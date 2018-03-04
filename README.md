@@ -29,7 +29,7 @@ Then, once it loads:
 
 Finally, change to the directory:
 
-`cd /vagrant/FSND-ItemCatalog`f
+`cd /vagrant/FSND-ItemCatalog`
 
 ## Enjoy the Show
 
