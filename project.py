@@ -1,3 +1,7 @@
+# Many pieces of code were borrowed/copied from the Restaurant menu project.
+# Also, OAuth and authentication was borrowed/copied from the
+# Udacity OAuth Course.
+
 import os
 import random
 import string
@@ -38,6 +42,7 @@ def showLogin():
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
+# This is the endpoint to connect a Google ID to the application.
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
@@ -142,6 +147,7 @@ def getUserID(email):
     except:
         return None
 
+# This endpoint allows the Google User to logout/disconnect.
 
 @app.route('/gdisconnect')
 def gdisconnect():
@@ -250,7 +256,6 @@ def newAuthor():
 
 
 @app.route('/<author>/edit', methods=['GET', 'POST'])
-# @app.route('/<authorname>/edit')
 def editAuthor(author):
     author = session.query(Author).filter_by(last_name=author.title()).first()
     if 'username' not in login_session:

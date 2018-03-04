@@ -1,3 +1,7 @@
+/* This article was used
+for assistance with styling: https://24ways.org/2012/how-to-make-your-site-look-half-decent/ */
+
+
 body {
   background-color: #efefef;
   background: url('/static/wood5.png');
@@ -41,5 +45,3 @@ p, div {
 #signinButton {
   text-align: center;
 }
-
-/* cite this website: https://24ways.org/2012/how-to-make-your-site-look-half-decent/ */
