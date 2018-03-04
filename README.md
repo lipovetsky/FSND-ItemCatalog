@@ -19,42 +19,27 @@ git repository to your machine. Here is the command:
 ## Run the database
 
 Now that you have a copy of the program, it's time to run it! Make sure you
-have Python 2 installed, and all of the accompanying software needed to run
-this program. You will have to install Flask and SQL Alchemy if it's not on your
-computer already. In that case, try
-the following command:
+run the vagrant environment first! It's got what you need!
 
-`brew install flask`
-`brew install sqlalchemy`
+`vagrant up`
 
+Then, once it loads:
 
-`$ psql -d news -f newsdata.sql.`
+`vagrant ssh`
 
-## Run the Script
+Finally, change to the directory:
 
-The hard part is over. Now, all we have to do
-is run the Python3 script! If you don't have
-Python3 installed, try running this on
-your terminal:
+`cd /vagrant/FSND-ItemCatalog`f
 
-`$ brew install python3`
+## Enjoy the Show
 
-If that doesn't work, you need to install
-homebrew. Check the following site for more:
+Now, with a simple command, we can make this come to life!
 
-http://docs.python-guide.org/en/latest/starting/install3/osx/
+`python project.py`
 
-Now that we have Python3 installed, all we
-have to do is run the following command:
-
-`python3 news.py`
-
-Sit back, relax, and enjoy.
-The database is doing all of the heavy lifting.
+Enjoy all the sights and sounds! Explore. Dream. Discover.
 
 
 ## Concluding Words
 
-This project was created as part of the Full Stack
-Nanodegre for Udacity. You will learn A LOT about
-SQL, should you choose to enroll. Recommended!
+This project is part of the Full Stack Nanodegree for Udacity. It is awesome!
