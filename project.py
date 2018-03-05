@@ -18,6 +18,7 @@ from oauth2client.client import FlowExchangeError
 import httplib2
 import json
 from flask import make_response, flash
+from functools import wraps
 import requests
 
 CLIENT_ID = json.loads(
@@ -34,6 +35,14 @@ Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+def login_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if 'username' not in login_session:
+            return redirect('login')
+        else:
+            return func(*args,**kwargs)
+    return wrapper
 
 @app.route('/login')
 def showLogin():
@@ -42,10 +51,12 @@ def showLogin():
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
-# This is the endpoint to connect a Google ID to the application.
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+    """
+    This is the endpoint to connect a Google ID to the application.
+    """
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -232,11 +243,9 @@ def showAuthor(author):
     else:
         return "Author doesn't exist!"
 
-
 @app.route('/authors/add', methods=['GET', 'POST'])
+@login_required
 def newAuthor():
-    if 'username' not in login_session:
-        return redirect('/login')
     if request.method == 'POST':
         theAuthor = request.form['authorname'].title()
         theBio = request.form['bio']
@@ -256,11 +265,10 @@ def newAuthor():
 
 
 @app.route('/<author>/edit', methods=['GET', 'POST'])
+@login_required
 def editAuthor(author):
     author = session.query(Author).filter_by(last_name=author.title()).first()
-    if 'username' not in login_session:
-        return redirect('/login')
-    elif login_session['user_id'] != author.user_id:
+    if login_session['user_id'] != author.user_id:
         return redirect(url_for('showAuthor', author=author.last_name))
     if author:
         if request.method == 'POST':
@@ -276,11 +284,10 @@ def editAuthor(author):
 
 
 @app.route('/<author>/delete', methods=['GET', 'POST'])
+@login_required
 def deleteAuthor(author):
     author = session.query(Author).filter_by(last_name=author).first()
-    if 'username' not in login_session:
-        return redirect('/login')
-    elif login_session['user_id'] != author.user_id:
+    if login_session['user_id'] != author.user_id:
         return redirect(url_for('showAuthor', author=author.last_name))
     if request.method == 'POST':
         session.delete(author)
@@ -303,11 +310,10 @@ def showBook(author, book):
 
 
 @app.route('/<author>/add', methods=['GET', 'POST'])
+@login_required
 def addBook(author):
     author = session.query(Author).filter_by(last_name=author.title()).first()
-    if 'username' not in login_session:
-        return redirect('/login')
-    elif login_session['user_id'] != author.user_id:
+    if login_session['user_id'] != author.user_id:
         return redirect(url_for('showAuthor', author=author.last_name))
     if request.method == 'POST':
         newBook = (request.form['name'].title(), request.form['image'],
@@ -327,11 +333,10 @@ def addBook(author):
 
 
 @app.route('/<author>/<book>/edit', methods=['GET', 'POST'])
+@login_required
 def editBook(author, book):
     author = session.query(Author).filter_by(last_name=author.title()).first()
-    if 'username' not in login_session:
-        return redirect('/login')
-    elif login_session['user_id'] != author.user_id:
+    if login_session['user_id'] != author.user_id:
         return redirect(url_for('showAuthor', author=author.last_name))
     allauthors = session.query(Author).all()
     book = session.query(Book).filter_by(name=book.title()).first()
@@ -354,11 +359,10 @@ def editBook(author, book):
 
 
 @app.route('/<author>/<book>/delete', methods=['GET', 'POST'])
+@login_required
 def deleteBook(author, book):
     author = session.query(Author).filter_by(last_name=author.title()).first()
-    if 'username' not in login_session:
-        return redirect('/login')
-    elif login_session['user_id'] != author.user_id:
+    if login_session['user_id'] != author.user_id:
         return redirect(url_for('showAuthor', author=author.last_name))
     book = session.query(Book).filter_by(name=book).first()
     if request.method == 'POST':
